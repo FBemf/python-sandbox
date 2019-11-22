@@ -1,0 +1,50 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <h2>Python Sandbox</h2>
+<textarea id="code" rows=24 cols=80>
+import time
+
+def main():
+    time.sleep(2)
+    print("Hello world!")
+
+if __name__ == "__main__":
+    main()
+</textarea>
+        <br><br>
+        <button id="execute" onclick="execute()">Run</button>
+        <br><br>
+        <hr>
+        <div id="output">
+        </div>
+        <hr>
+    </body>
+    <script>
+        function execute() {
+            data = {
+                code: document.getElementById("code").value,
+            };
+            document.getElementById("output").innerHTML = "LOADING..."
+            post("/run", data, function() {
+                if (this.status == 200) {
+                    document.getElementById("output").innerHTML = this.response
+                } else {
+                    document.getElementById("output").innerHTML = "ERROR!"
+                }
+            });
+        }
+        function post(url, data, hook) {
+            // collect the form data while iterating over the inputs
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+
+            // send the collected data as JSON
+            xhr.send(JSON.stringify(data));
+
+            xhr.onload = hook;
+        }
+    </script>
+</html>
