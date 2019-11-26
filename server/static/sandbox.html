@@ -1,51 +1,29 @@
 <html>
     <head>
+        <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous">
+        </script>
+        <script src="script.js"></script>
+        <link rel="stylesheet" href="style.css"></link>
     </head>
+
     <body>
         <h2>Python Sandbox</h2>
 <textarea id="code" rows=24 cols=80>
 import time
 
 def main():
-    time.sleep(2)
     print("Hello world!")
 
 if __name__ == "__main__":
     main()
 </textarea>
+
         <br><br>
         <button id="execute" onclick="execute()">Run</button>
         <br><br>
-        <hr>
-        <div id="output">
-        </div>
-        <hr>
+        <div id="output"></div>
     </body>
-    <script
-			  src="https://code.jquery.com/jquery-3.4.1.min.js"
-			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-			  crossorigin="anonymous"></script>
-    <script>
-        function execute() {
-            data = JSON.stringify({
-                code: $("#code").val(),
-            });
-            $("#output").show();
-            $("#output").html("<em>LOADING...</em>");
-            $.ajax({
-                type: "POST",
-                url: "/run",
-                headers: {
-                    "Content-Type": "application/json; charset=UTF-8",
-                },
-                data: data,
-                success: function( result ) {
-                    $("#output").html(result);
-                },
-                error: function() {
-                    $("#output").html("<em>ERROR!</em>");
-                },
-            });
-        }
-    </script>
 </html>
