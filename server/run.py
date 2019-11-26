@@ -1,6 +1,9 @@
-from flask import (Blueprint, request)
+import docker
+import html
 import tempfile
 import os
+
+from flask import (Blueprint, request)
 
 tempDir = "/tmp"
 sandboxDir = "/opt/sandbox"
@@ -24,7 +27,7 @@ def makeBlueprint(imageName, client):
         output = client.containers.run(
             imageName,
             "python -c 'print(\"hello world\")'"
-        ).decode("utf8")
+        ).decode("utf8").replace("\n", "<br>")
         return output
 
     @bp.route("/run", methods=["POST"])
@@ -42,15 +45,21 @@ def makeBlueprint(imageName, client):
         with open(os.path.join(tmpdir, "main.py"), "w+") as f:
             f.write(code)
 
-        output = client.containers.run(
-            imageName,
-            f"python {sandboxDir}/main.py",
-            volumes={tmpdir: {
-                "bind": sandboxDir,
-                "mount": "ro"
-        }}).decode("utf8").replace("\n", "<br>")
+        try:
+            output = client.containers.run(
+                imageName,
+                f"python {sandboxDir}/main.py",
+                volumes={tmpdir: {
+                    "bind": sandboxDir,
+                    "mount": "ro"
+            }}).decode("utf8")
+            output = html.escape(output)
+            output = output.replace("\n", "<br>")
+        except docker.errors.ContainerError as err:
+            return str(err)
+        finally:
+            rmrf(tmpdir)
 
-        rmrf(tmpdir)
         return output
 
     return bp
