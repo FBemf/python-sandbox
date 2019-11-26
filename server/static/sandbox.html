@@ -27,20 +27,23 @@ if __name__ == "__main__":
 			  crossorigin="anonymous"></script>
     <script>
         function execute() {
-            data = {
-                code: document.getElementById("code").value,
-            };
+            data = JSON.stringify({
+                code: $("#code").val(),
+            });
             $("#output").show();
             $("#output").html("<em>LOADING...</em>");
             $.ajax({
                 type: "POST",
                 url: "/run",
+                headers: {
+                    "Content-Type": "application/json; charset=UTF-8",
+                },
                 data: data,
                 success: function( result ) {
                     $("#output").html(result);
                 },
                 error: function() {
-                    $("#output").html("ERROR!");
+                    $("#output").html("<em>ERROR!</em>");
                 },
             });
         }
