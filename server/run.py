@@ -56,7 +56,11 @@ def makeBlueprint(imageName, client):
             output = html.escape(output)
             output = output.replace("\n", "<br>")
         except docker.errors.ContainerError as err:
-            return str(err)
+            error = err.stderr.decode("utf8")
+            error = html.escape(error)
+            error = error.replace("\n", "<br>")
+            print(f"Caught error {err}")
+            return f"<em>ERROR:</em> {error}"
         finally:
             rmrf(tmpdir)
 
