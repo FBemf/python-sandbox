@@ -3,9 +3,18 @@ body {
     margin: auto;
 }
 
+#code {
+    margin: 1% auto;
+}
+
+button {
+    margin: 1% auto;
+}
+
 #output {
     background-color: grey;
     color: white;
     padding: 1%;
+    margin: 1% auto;
     font-family: monospace;
 }
