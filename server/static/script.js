@@ -67,7 +67,7 @@ function execute() {
             $("#output").html(result);
         },
         error: function(xhr) {
-            $("#output").html("<em>UNKNOWN ERROR</em>");
+            $("#output").html("<em>SERVER ERROR</em>");
         },
     });
 }
