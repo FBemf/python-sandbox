@@ -1,4 +1,5 @@
 window.onload = function () {
+    notification("Welcome!", "Welcome to the Python Sandbox!<br>-- Felipe", "is-info");
     // Tabs and backspaces
     document.querySelector("#code").addEventListener("keydown", function(e) {
         let keyCode = e.keyCode || e.which;
@@ -57,7 +58,6 @@ function execute() {
         if (response.ok) {
             response.text().then(result => {
                 let parsed = JSON.parse(result);
-                let notifs = document.querySelector("#notifications");
                 let status = "";
                 let title = "";
                 if (parsed.status == "success") {
@@ -67,17 +67,18 @@ function execute() {
                     title = "Python Error"
                     status = "is-warning";
                 }
-                notifs.insertBefore(notification(title, parsed.text, status), notifs.firstChild);
+                notification(title, parsed.text, status);
             })
         } else {
             let notifs = document.querySelector("#notifications");
-            notifs.insertBefore(notification("Error!", "SERVER ERROR", "is-error"), notifs.firstChild);
+            notification("Error!", "SERVER ERROR", "is-error");
         }
         document.querySelector("#execute").classList.remove("is-loading");
     });
 }
 
 function notification(title, msg, type) {
+    let notifs = document.querySelector("#notifications");
     let newNotif = document.createElement("article");
     newNotif.classList.add("message");
     newNotif.classList.add("is-small");
@@ -97,5 +98,5 @@ function notification(title, msg, type) {
     body.innerHTML = msg;
     newNotif.appendChild(header);
     newNotif.appendChild(body);
-    return newNotif
+    notifs.insertBefore(newNotif, notifs.firstChild);
 }

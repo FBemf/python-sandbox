@@ -55,14 +55,16 @@ def makeBlueprint(imageName, client):
                     "mount": "ro"
             }}).decode("utf8")
             output = html.escape(output)
+            output = output.replace(" ", "&nbsp;")
             output = output.replace("\n", "<br>")
         except docker.errors.ContainerError as err:
             error = err.stderr.decode("utf8")
             error = html.escape(error)
+            error = error.replace(" ", "&nbsp;")
             error = error.replace("\n", "<br>")
             print(f"Caught error {err}")
             return json.dumps({
-                "text": f"<em>ERROR:</em> {error}",
+                "text": error,
                 "status": "error",
             })
         finally:

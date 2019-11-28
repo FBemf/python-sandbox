@@ -5,12 +5,13 @@
     </head>
 
     <body>
-        <section class="section">
-            <div class="container">
-                <h1 class="title">Python Sandbox</h1>
-
-                <div class="field">
-                <div class="control">
+            <div class="columns">
+                <div class="column">
+                    <section class="section">
+                        <div class="container">
+                            <h1 class="title">Python Sandbox</h1>
+                            <div class="field">
+                                <div class="control">
 <textarea id="code" class="textarea is-family-code" rows=10 spellcheck="false">
 import time
 
@@ -19,20 +20,24 @@ def main():
 
 main()
 </textarea>
-                </div>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <button id="execute"
+                                            class="button is-primary is-fullwidth"
+                                            onclick="execute()">Run</button>
+                                </div>
+                        </div>
+                    </section>
                 </div>
 
-                <div class="field">
-                <div class="control">
-                <button id="execute" class="button is-primary is-fullwidth" onclick="execute()">Run</button>
-                </div>
+                <div class="column">
+                    <section class="section">
+                        <div id="notifications" class="container">
+                        </div>
+                    </section>
                 </div>
             </div>
-        </section>
-
-        <section class="section">
-            <div id="notifications" class="container">
-            </div>
-        </section>
     </body>
 </html>
