@@ -25,6 +25,8 @@ def makeBlueprint(imageName, client):
 
     @bp.route("/hello")
     def hello():
+        """ A simple hello-world to make sure docker's running.
+        """
         output = client.containers.run(
             imageName,
             "python -c 'print(\"hello world\")'"
@@ -33,19 +35,22 @@ def makeBlueprint(imageName, client):
 
     @bp.route("/run", methods=["POST"])
     def runInDocker():
+        """ Run a given python script in a dockerized python environment.
+
+            Takes as input a json with a "code" field holding the code.
+        """
+
+        # Log code
         data = request.json
         print(data)
         code = data["code"]
-        if len(code) > 20:
-            summary = code[0:10] + " ... " + code[-10:]
-        else:
-            summary = code
-        summary = summary.replace("\n", "\\n")
-        print(f"executing program \"{summary}\"")
+        print(f"executing program \"{summarize(code)}\"")
+
+        # Write code into temp file
         tmpdir = tempfile.mkdtemp(dir=tempDir)
         with open(os.path.join(tmpdir, "main.py"), "w+") as f:
             f.write(code)
-
+        
         try:
             output = client.containers.run(
                 imageName,
@@ -54,28 +59,41 @@ def makeBlueprint(imageName, client):
                     "bind": sandboxDir,
                     "mount": "ro"
             }}).decode("utf8")
-            output = html.escape(output)
-            output = output.replace(" ", "&nbsp;")
-            output = output.replace("\n", "<br>")
         except docker.errors.ContainerError as err:
             error = err.stderr.decode("utf8")
-            error = html.escape(error)
-            error = error.replace(" ", "&nbsp;")
-            error = error.replace("\n", "<br>")
             print(f"Caught error {err}")
             return json.dumps({
-                "text": error,
+                "text": escapeOutput(error),
                 "status": "error",
             })
         finally:
             rmrf(tmpdir)
 
         return json.dumps({
-            "text": output,
+            "text": escapeOutput(output),
             "status": "success",
         })
 
     return bp
+
+def escapeOutput(output):
+    """ Escapes result text in such a way
+        as to make it display nicely and safely.
+    """
+    output = html.escape(output)
+    output = output.replace(" ", "&nbsp;")
+    output = output.replace("\n", "<br>")
+    return output
+
+def summarize(text):
+    """ Summarizes some text
+    """
+    if len(text) > 20:
+        summary = text[0:10] + " ... " + text[-10:]
+    else:
+        summary = text
+    summary = summary.replace("\n", "\\n")
+    return summary
 
 def rmrf(target):
     """ Removes all files within a filesystem tree

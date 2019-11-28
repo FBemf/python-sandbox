@@ -12,11 +12,13 @@
                             <h1 class="title">Python Sandbox</h1>
                             <div class="field">
                                 <div class="control">
-<textarea id="code" class="textarea is-family-code" rows=10 spellcheck="false">
-import time
+<textarea id="code" class="textarea is-small is-family-code" rows=15 spellcheck="false">
+import re
 
 def main():
-    print("Hello world!")
+    hello = "Hello World!"
+    sub = re.sub("W\w*", "Sandbox", hello)
+    print(sub)
 
 main()
 </textarea>

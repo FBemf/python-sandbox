@@ -71,7 +71,7 @@ function execute() {
             })
         } else {
             let notifs = document.querySelector("#notifications");
-            notification("Error!", "SERVER ERROR", "is-error");
+            notification("Error!", "SERVER ERROR", "is-danger");
         }
         document.querySelector("#execute").classList.remove("is-loading");
     });
