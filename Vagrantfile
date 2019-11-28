@@ -63,23 +63,7 @@ Vagrant.configure("2") do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  config.vm.provision "shell", inline: <<-SHELL
-    apt-get update && apt-get upgrade
-    apt-get install -y python3 python3-pip python3-venv
-    apt-get install -y \
-      apt-transport-https \
-      ca-certificates \
-      curl \
-      gnupg-agent \
-      software-properties-common
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-    add-apt-repository \
-      "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-      $(lsb_release -cs) \
-      stable"
-    apt-get update
-    apt-get install -y docker-ce docker-ce-cli containerd.io
-    groupadd docker
-    usermod -aG docker vagrant
-  SHELL
+  # config.vm.provision "shell", inline: <<-SHELL
+  #   apt-get update && apt-get upgrade -y
+  # SHELL
 end
