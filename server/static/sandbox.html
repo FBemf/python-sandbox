@@ -1,21 +1,43 @@
 <html>
     <head>
         <script src="script.js"></script>
-        <link rel="stylesheet" href="style.css"></link>
+        <!--<link rel="stylesheet" href="style.css"></link>-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"></link>
     </head>
 
     <body>
-        <h2>Python Sandbox</h2>
-<textarea id="code" rows=24 cols=80>
+        <section class="section">
+            <div class="container">
+                <h1 class="title">Python Sandbox</h1>
+
+                <div class="field">
+                <div class="control">
+<textarea id="code" class="textarea is-family-code" rows=10 spellcheck="false">
 import time
 
 def main():
     print("Hello world!")
 
-if __name__ == "__main__":
-    main()
-</textarea><br>
-        <button id="execute" onclick="execute()">Run</button>
-        <div id="output"></div>
+main()
+</textarea>
+                </div>
+                </div>
+
+                <div class="field">
+                <div class="control">
+                <button id="execute" class="button is-primary is-fullwidth" onclick="execute()">Run</button>
+                </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div id="notifications" class="container">
+                <article id="output-box" class="message is-small">
+                <div class="message-header">Python Output</div>
+                <div id="output" class="message-body is-family-code"></div>
+                </article>
+            </div>
+        </section>
     </body>
 </html>

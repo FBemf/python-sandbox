@@ -1,5 +1,6 @@
 import docker
 import html
+import json
 import tempfile
 import os
 
@@ -60,11 +61,17 @@ def makeBlueprint(imageName, client):
             error = html.escape(error)
             error = error.replace("\n", "<br>")
             print(f"Caught error {err}")
-            return f"<em>ERROR:</em> {error}"
+            return json.dumps({
+                "text": f"<em>ERROR:</em> {error}",
+                "status": "error",
+            })
         finally:
             rmrf(tmpdir)
 
-        return output
+        return json.dumps({
+            "text": output,
+            "status": "success",
+        })
 
     return bp
 

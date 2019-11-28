@@ -2,7 +2,7 @@
 
     // Hide the output box
     window.onload = function () {
-        document.querySelector("#output").style.display = "none"
+        document.querySelector("#output-box").style.display = "none"
 
         // Tabs and backspaces
         document.querySelector("#code").addEventListener("keydown", function(e) {
@@ -48,8 +48,7 @@
 
 // Execute the code in the box
 function execute() {
-    document.querySelector("#output").innerHTML = "<em>LOADING...</em>";
-    document.querySelector("#output").style.display = "block";
+    document.querySelector("#execute").classList.add("is-loading");
 
     data = JSON.stringify({
         code: document.querySelector("#code").value,
@@ -62,11 +61,24 @@ function execute() {
         body: data,
     }).then(response => {
         if (response.ok) {
-            return response.text();
+            response.text().then(result => {
+                parsed = JSON.parse(result);
+                document.querySelector("#output").innerHTML = parsed.text;
+                if (parsed.status == "success") {
+                    document.querySelector("#output-box").classList.add("is-success");
+                } else if (parsed.status == "error") {
+                    document.querySelector("#output-box").classList.add("is-warning");
+                }
+            })
         } else {
-            return "<em>SERVER ERROR</em>";
+            document.querySelector("#output").innerHTML = "SERVER ERROR";
+            document.querySelector("#output-box").classList.add("is-error");
         }
-    }).then(result => {
-        document.querySelector("#output").innerHTML = result;
+        document.querySelector("#execute").classList.remove("is-loading");
+        box = document.querySelector("#output-box");
+        box.classList.remove("is-success");
+        box.classList.remove("is-warning");
+        box.classList.remove("is-error");
+        box.style.display = "block";
     });
 }
