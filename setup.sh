@@ -2,6 +2,8 @@
 
 # Requires sudo permission
 
+USER=ubuntu
+
 set -ex
 
 apt-get update && apt-get upgrade -y
@@ -20,4 +22,4 @@ add-apt-repository \
 apt-get update
 apt-get install -y docker-ce docker-ce-cli containerd.io
 groupadd docker
-usermod -aG docker vagrant
+usermod -aG docker ${USER}

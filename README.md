@@ -4,4 +4,4 @@ This is an online python playground built with Javascript, Bulma css, Docker, an
 
 ## Setup
 
-Run `setup.sh` to install dependencies (configured for Ubuntu 18.04), and then run `start.sh` to run in Flask debug mode. Use gunicorn or another WSGI server if you want to run in production.
+Run `setup.sh` to install dependencies (configured for Ubuntu 18.04), install flask and the python docker library in a virtual env, and then run `start.sh` to run in Flask debug mode. Use gunicorn or another WSGI server if you want to run in production.
