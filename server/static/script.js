@@ -1,5 +1,5 @@
 window.onload = function () {
-    notify("Welcome!", "Welcome to the Python Sandbox! Complete with a working tab key<br>-- Felipe", "is-info");
+    notify("Welcome!", "Welcome to the Python Sandbox! Complete with a working tab key.<br>-- Felipe", "is-info");
     // Tabs and backspaces
     document.querySelector("#code").addEventListener("keydown", function(e) {
         let keyCode = e.keyCode || e.which;
@@ -99,4 +99,27 @@ function notify(title, msg, type) {
     newNotif.appendChild(header);
     newNotif.appendChild(body);
     notifs.insertBefore(newNotif, notifs.firstChild);
+    animateIn(newNotif);
+}
+
+function animateIn(newNotif) {
+    let progress = 0;
+    let offset = 70;
+    let time = 180.0;
+    let timeExtension = 2;
+    let frames = 3;
+
+    newNotif.style.position = "relative";
+    id = setInterval(frame, frames);
+    function frame() {
+        newNotif.style.opacity = progress;
+        newNotif.style.left = (offset - offset * progress) + "px";
+        progress += frames / time;
+        time += timeExtension;
+        if (progress >= 1) {
+            clearInterval(id);
+            newNotif.style.opacity = 1;
+            newNotif.style.left = 0 + "px";
+        }
+    }
 }
