@@ -105,8 +105,8 @@ function notify(title, msg, type) {
 function animateIn(newNotif) {
     let progress = 0;
     let offset = 70;
-    let time = 180.0;
-    let timeExtension = 2;
+    let time = 70.0;
+    let timeExtension = 7;
     let frames = 3;
 
     newNotif.style.position = "relative";
