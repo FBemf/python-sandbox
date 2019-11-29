@@ -1,5 +1,5 @@
 window.onload = function () {
-    notify("Welcome!", "Welcome to the Python Sandbox! Complete with a working tab key.<br>-- Felipe", "is-info");
+    notify("Welcome!", "Welcome to the Python Sandbox! Complete with a working tab key.<br>-- Felipe :)", "is-info");
     // Tabs and backspaces
     document.querySelector("#code").addEventListener("keydown", function(e) {
         let keyCode = e.keyCode || e.which;
