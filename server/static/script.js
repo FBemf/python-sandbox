@@ -1,5 +1,5 @@
 window.onload = function () {
-    notification("Welcome!", "Welcome to the Python Sandbox!<br>-- Felipe", "is-info");
+    notify("Welcome!", "Welcome to the Python Sandbox! Complete with a working tab key<br>-- Felipe", "is-info");
     // Tabs and backspaces
     document.querySelector("#code").addEventListener("keydown", function(e) {
         let keyCode = e.keyCode || e.which;
@@ -65,19 +65,19 @@ function execute() {
                     status = "is-success";
                 } else if (parsed.status == "error") {
                     title = "Python Error"
-                    status = "is-warning";
+                    status = "is-danger";
                 }
-                notification(title, parsed.text, status);
+                notify(title, parsed.text, status);
             })
         } else {
             let notifs = document.querySelector("#notifications");
-            notification("Error!", "SERVER ERROR", "is-danger");
+            notify("Error!", "SERVER ERROR", "is-warning");
         }
         document.querySelector("#execute").classList.remove("is-loading");
     });
 }
 
-function notification(title, msg, type) {
+function notify(title, msg, type) {
     let notifs = document.querySelector("#notifications");
     let newNotif = document.createElement("article");
     newNotif.classList.add("message");
