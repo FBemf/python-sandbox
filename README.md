@@ -15,16 +15,17 @@ This is an online python playground built with Javascript, Bulma CSS, Docker, an
 ## Nginx configuration
 
 ```nginx
-	location / {
-		# First attempt to serve request as file, then
-		# as directory, then fall back to displaying a 404.
-		try_files $uri $uri/ =404;
-	}
+location / {
+	# First attempt to serve request as file, then
+	# as directory, then fall back to displaying a 404.
+	try_files $uri $uri/ =404;
+}
 
-	location /hello {
-		proxy_pass http://localhost:8000/hello;
-	}
+location /hello {
+	proxy_pass http://localhost:8000/hello;
+}
 
-	location /run {
-		proxy_pass http://localhost:8000/run;
+location /run {
+	proxy_pass http://localhost:8000/run;
+}
 ```
