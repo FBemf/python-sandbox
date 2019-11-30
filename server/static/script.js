@@ -1,8 +1,17 @@
 window.onload = function () {
     notify("Welcome!", "Welcome to the Python Sandbox! Complete with a working tab key.<br>-- Felipe :)", "is-info");
     // Tabs and backspaces
+    undos = [];
+    redos = [];
+    let textarea = document.querySelector("#code");
+    undos.push({
+        body: textarea.value,
+        start: textarea.selectionStart,
+        end: textarea.selectionEnd,
+    });
     document.querySelector("#code").addEventListener("keydown", function (e) {
         let keyCode = e.keyCode || e.which;
+        console.log(keyCode);
 
         if (keyCode == 8) {
             if (this.selectionStart == null
@@ -63,6 +72,11 @@ window.onload = function () {
             }
 
         } else if (keyCode == 13) {
+            undos.push({
+                body: this.value,
+                start: this.selectionStart,
+                end: this.selectionEnd,
+            });
             e.preventDefault();
             let start = this.selectionStart;
             let end = this.selectionEnd;
@@ -87,6 +101,38 @@ window.onload = function () {
             // put caret at right position again
             this.selectionEnd = start + spaces + 1;
             this.selectionStart = this.selectionEnd;
+        } else if (keyCode == 32 || keyCode == 173) {
+            undos.push({
+                body: this.value,
+                start: this.selectionStart,
+                end: this.selectionEnd,
+            });
+        } else if (keyCode == 89 && e.ctrlKey) {
+            e.preventDefault();
+            if (redos.length > 0) {
+                undos.push({
+                    body: this.value,
+                    start: this.selectionStart,
+                    end: this.selectionEnd,
+                });
+                newState = redos.pop()
+                this.value = newState.body;
+                this.selectionStart = newState.start;
+                this.selectionEnd = newState.end;
+            }
+        } else if (keyCode == 90 && e.ctrlKey) {
+            e.preventDefault();
+            if (undos.length > 0) {
+                redos.push({
+                    body: this.value,
+                    start: this.selectionStart,
+                    end: this.selectionEnd,
+                });
+                newState = undos.pop()
+                this.value = newState.body;
+                this.selectionStart = newState.start;
+                this.selectionEnd = newState.end;
+            }
         }
     });
 }

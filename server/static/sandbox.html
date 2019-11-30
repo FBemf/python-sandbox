@@ -1,31 +1,36 @@
 <html>
-    <head>
-        <script src="script.js"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"></link>
-    </head>
 
-    <body>
-        <section class="hero is-light">
-            <div class="hero-body">
-                <div class="container">
+<head>
+    <meta charset="utf-8" />
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    </link>
+</head>
+
+<body>
+    <section class="hero is-light">
+        <div class="hero-body">
+            <div class="container">
                 <h1 class="title">
                     Python Sandbox
                 </h1>
                 <h2 class="subtitle">
-                    A little sandbox, just for fun 
+                    A little sandbox, just for fun
                 </h2>
-                </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="section"><div class="container">
+    <section class="section">
+        <div class="container">
             <div class="columns is-mobile">
                 <div class="column">
                     <section class="section">
                         <div class="container">
                             <div class="field">
                                 <div class="control">
-<textarea id="code" class="textarea is-small is-family-code" rows=15 spellcheck="false">
+                                    <textarea id="code" class="textarea is-small is-family-code" rows=15
+                                        spellcheck="false">
 import re
 
 def main():
@@ -39,11 +44,10 @@ main()
                             </div>
                             <div class="field">
                                 <div class="control">
-                                    <button id="execute"
-                                            class="button is-primary is-fullwidth"
-                                            onclick="execute()">Run</button>
+                                    <button id="execute" class="button is-primary is-fullwidth"
+                                        onclick="execute()">Run</button>
                                 </div>
-                        </div>
+                            </div>
                     </section>
                 </div>
 
@@ -54,6 +58,8 @@ main()
                     </section>
                 </div>
             </div>
-        </div></section>
-    </body>
+        </div>
+    </section>
+</body>
+
 </html>
