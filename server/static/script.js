@@ -62,8 +62,7 @@ window.onload = function () {
                 this.selectionStart = this.selectionEnd;
             }
 
-        }
-        if (keyCode == 13) {
+        } else if (keyCode == 13) {
             e.preventDefault();
             let start = this.selectionStart;
             let end = this.selectionEnd;
