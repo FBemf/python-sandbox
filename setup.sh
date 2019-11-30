@@ -2,7 +2,7 @@
 
 # Requires sudo permission
 
-USER=ubuntu
+USER=vagrant
 
 set -ex
 
@@ -21,5 +21,5 @@ add-apt-repository \
     stable"
 apt-get update
 apt-get install -y docker-ce docker-ce-cli containerd.io
-groupadd docker
+# groupadd docker
 usermod -aG docker ${USER}

@@ -1,12 +1,12 @@
 window.onload = function () {
     notify("Welcome!", "Welcome to the Python Sandbox! Complete with a working tab key.<br>-- Felipe :)", "is-info");
     // Tabs and backspaces
-    document.querySelector("#code").addEventListener("keydown", function(e) {
+    document.querySelector("#code").addEventListener("keydown", function (e) {
         let keyCode = e.keyCode || e.which;
 
         if (keyCode == 8) {
             if (this.selectionStart == null
-                    || this.selectionStart == this.selectionEnd) {
+                || this.selectionStart == this.selectionEnd) {
                 let cursorPosition = this.selectionEnd;
                 let beforeCursor = this.value.substring(0, cursorPosition);
                 let numSpaces = 0;
@@ -15,27 +15,78 @@ window.onload = function () {
                     numSpaces += 1;
                     i -= 1;
                 }
-                if (numSpaces > 0 && numSpaces % 4 == 0) {
-                    e.preventDefault();
-                    this.value = this.value.substring(0, cursorPosition - 4)
-                        + this.value.substring(cursorPosition);
-                    this.selectionEnd = cursorPosition - 4;
-                    this.selectionStart = this.selectionEnd;
+                if (numSpaces > 0) {
+                    if (numSpaces % 4 == 0) {
+                        e.preventDefault();
+                        this.value = this.value.substring(0, cursorPosition - 4)
+                            + this.value.substring(cursorPosition);
+                        this.selectionEnd = cursorPosition - 4;
+                        this.selectionStart = this.selectionEnd;
+                    } else {
+                        e.preventDefault();
+                        this.value = this.value.substring(0, cursorPosition - numSpaces % 4)
+                            + this.value.substring(cursorPosition);
+                        this.selectionEnd = cursorPosition - numSpaces % 4;
+                        this.selectionStart = this.selectionEnd;
+                    }
                 }
             }
         } else if (keyCode == 9) {
             e.preventDefault();
             let start = this.selectionStart;
             let end = this.selectionEnd;
-            let insertString = "    "
+
+            let i = start - 1;
+            let characters = 0;
+            while (i >= 0 && this.value[i] != "\n") {
+                characters += 1;
+                i -= 1;
+            }
+
+            if (characters % 4 == 0) {
+                this.value = this.value.substring(0, start)
+                    + " ".repeat(4)
+                    + this.value.substring(end);
+
+                // put caret at right position again
+                this.selectionEnd = start + 4;
+                this.selectionStart = this.selectionEnd;
+            } else {
+                // set textarea value to: text before caret + tab + text after caret
+                this.value = this.value.substring(0, start)
+                    + " ".repeat(characters % 4)
+                    + this.value.substring(end);
+
+                // put caret at right position again
+                this.selectionEnd = start + characters % 4;
+                this.selectionStart = this.selectionEnd;
+            }
+
+        }
+        if (keyCode == 13) {
+            e.preventDefault();
+            let start = this.selectionStart;
+            let end = this.selectionEnd;
+
+            let i = start - 1;
+            let spaces = 0;
+            while (i >= 0 && this.value[i] != "\n") {
+                if (this.value[i] == " ") {
+                    spaces += 1;
+                } else {
+                    spaces = 0;
+                }
+                i -= 1;
+            }
 
             // set textarea value to: text before caret + tab + text after caret
             this.value = this.value.substring(0, start)
-                        + insertString
-                        + this.value.substring(end);
+                + "\n"
+                + " ".repeat(spaces)
+                + this.value.substring(end);
 
             // put caret at right position again
-            this.selectionEnd = start + insertString.length;
+            this.selectionEnd = start + spaces + 1;
             this.selectionStart = this.selectionEnd;
         }
     });
