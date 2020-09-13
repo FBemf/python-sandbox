@@ -5,7 +5,6 @@
     <script src="script.js"></script>
     <title>Python Sandbox</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
-    </link>
 </head>
 
 <body>
@@ -26,12 +25,9 @@
         <div class="container">
             <div class="columns">
                 <div class="column">
-                    <section class="section">
-                        <div class="container">
-                            <div class="field">
-                                <div class="control">
-                                    <textarea id="code" class="textarea is-small is-family-code" rows=15
-                                        spellcheck="false">
+                    <div class="field">
+                        <div class="control">
+                            <textarea id="code" class="textarea is-small is-family-code" rows=15 spellcheck="false">
 import re
 
 def main():
@@ -41,30 +37,25 @@ def main():
 
 main()
 </textarea>
-                                </div>
-                            </div>
-                            <div class="field">
-                                <div class="control">
-                                    <button id="execute" class="button is-primary is-fullwidth"
-                                        onclick="execute()">Run</button>
-                                </div>
-                            </div>
-                    </section>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <button id="execute" class="button is-primary is-fullwidth" onclick="execute()">Run</button>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="column">
-                    <section class="section">
-                        <div id="notifications" class="container">
-                        </div>
-                    </section>
+                <div id="notifications" class="column">
                 </div>
             </div>
         </div>
     </section>
     <footer class="footer">
-      <div class="content has-text-centered">
-          <p>Written by Felipe Bemfica. Find the source <a href="https://github.com/FBemf/python-sandbox">here.</a></p>
-      </div>
+        <div class="content has-text-centered">
+            <p>Written by Felipe Bemfica. Find the source <a href="https://github.com/FBemf/python-sandbox">here</a>.
+            </p>
+        </div>
     </footer>
 </body>
 
