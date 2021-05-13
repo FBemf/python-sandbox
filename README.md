@@ -2,6 +2,8 @@
 
 This is an online python playground built with Javascript, Bulma CSS, Docker, and Python 3. Built to run on Ubuntu 18.04, but it'll run on anything, really.
 
+![screenshot](screenshot.png)
+
 ## Setup
 
 - Run `setup.sh` to install dependencies (configured for Ubuntu 18.04)

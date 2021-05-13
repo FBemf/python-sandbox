@@ -1,0 +1,12 @@
+{
+	admin off
+}
+
+# Set up for local testing
+http://localhost:8001 {
+    reverse_proxy /run localhost:8000
+    reverse_proxy /hello localhost:8000
+    file_server {
+        root server/static
+    }
+}
